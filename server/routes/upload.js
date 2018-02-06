@@ -17,7 +17,6 @@ module.exports = function(req, res) {
     dlimit: 1,
     dl: 0,
     owner,
-    delete: owner, // delete is deprecated
     metadata,
     pwd: 0,
     auth: auth.split(' ')[1],
@@ -47,7 +46,7 @@ module.exports = function(req, res) {
 
   req.on('close', async err => {
     try {
-      await storage.forceDelete(newId);
+      await storage.del(newId);
     } catch (e) {
       log.info('DeleteError:', newId);
     }

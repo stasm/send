@@ -1,10 +1,8 @@
 const storage = require('../storage');
 
 module.exports = async (req, res) => {
-  const id = req.params.id;
-
   try {
-    const meta = await storage.metadata(id);
+    const meta = await storage.metadata(req.params.id);
     res.set('WWW-Authenticate', `send-v1 ${meta.nonce}`);
     res.send({
       password: meta.pwd !== '0'
